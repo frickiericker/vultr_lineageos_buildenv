@@ -1,0 +1,37 @@
+#!/bin/sh -efu
+
+REMOTE_USER=vultr
+REMOTE_PORT=60001
+
+usage() {
+    cat >&2 << END
+usage: $1 [-ph]
+mosh into the vagrant host.
+
+options:
+ -p PORT  use specified port on the host
+ -h       print usage and exit
+END
+}
+
+while getopts p:h OPT; do
+    case ${OPT} in
+    p)  REMOTE_PORT=${OPTARG}
+        ;;
+    h)  usage "$0"
+        exit
+    esac
+done
+shift $(expr ${OPTIND} - 1)
+
+build_args() {
+    vagrant ssh-config | awk -v user=${REMOTE_USER} '{
+        config[$1] = $2
+    }
+    END {
+        key = config["IdentityFile"]
+        host = config["HostName"]
+        print "--ssh=\"ssh -i " key "\" " user "@" host
+    }'
+}
+eval mosh -p ${REMOTE_PORT} $(build_args)

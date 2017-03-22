@@ -1,0 +1,13 @@
+shopt -s autocd
+shopt -s cdspell
+shopt -s dirspell
+shopt -s globstar
+shopt -s nocaseglob
+
+HISTSIZE=1000000
+HISTFILESIZE=1000000
+
+alias ll='ls -ahlF'
+alias lt='ll -rt'
+
+set -o vi

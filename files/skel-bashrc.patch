@@ -1,0 +1,13 @@
+--- /etc/skel/.bashrc	2016-06-24 07:44:28.000000000 +0000
++++ /etc/skel/.bashrc	2017-03-22 16:15:51.153664550 +0000
+@@ -105,6 +105,10 @@
+     . ~/.bash_aliases
+ fi
+ 
++if [ -f ~/.bashrc.local ]; then
++    . ~/.bashrc.local
++fi
++
+ # enable programmable completion features (you don't need to enable
+ # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+ # sources /etc/bash.bashrc).

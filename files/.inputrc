@@ -1,0 +1,9 @@
+set completion-ignore-case on
+set completion-map-case on
+set show-all-if-ambiguous on
+set skip-completed-text on
+
+$if mode=vi
+    set keymap vi-command
+    set keymap vi-insert
+$endif
