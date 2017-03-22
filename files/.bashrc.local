@@ -11,3 +11,17 @@ alias ll='ls -ahlF'
 alias lt='ll -rt'
 
 set -o vi
+
+check_tmux_sessions() {
+    if local n_sess=$(tmux ls -F '' 2> /dev/null | wc -l); then
+        case ${n_sess} in
+        1)  echo "** You have a tmux session. **" >&2
+            ;;
+        *)  echo "** You have ${n_sess} tmux sessions. **" >&2
+        esac
+    fi
+}
+
+if [ -z "${TMUX}" ]; then
+    check_tmux_sessions
+fi
